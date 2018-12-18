@@ -9,10 +9,9 @@
 'use strict'
 
 const createAccount = require('./bank-account')
-const bankAccountA = createAccount()
-const bankAccountB = createAccount()
 
 test('bankAccountA cannot add new properties', () => {
+	const bankAccountA = createAccount()
 	expect(() => {
 		bankAccountA.somerandprop = 1
 	})
@@ -20,6 +19,7 @@ test('bankAccountA cannot add new properties', () => {
 })
 
 test('bankAccountA cannot directly change properties', () => {
+	const bankAccountA = createAccount()
 	expect(() => {
 		bankAccountA.balance = 1
 	})
@@ -27,6 +27,7 @@ test('bankAccountA cannot directly change properties', () => {
 })
 
 test('bankAccountA can deposit 2140', () => {
+	const bankAccountA = createAccount()
 	bankAccountA.deposit({amount: 100})
 	bankAccountA.deposit({amount: 320})
 	bankAccountA.deposit({amount: 640})
@@ -36,13 +37,19 @@ test('bankAccountA can deposit 2140', () => {
 })
 
 test('bankAccountB can deposit 777', () => {
+	const bankAccountB = createAccount()
 	bankAccountB.deposit({amount: 777})
 	expect(bankAccountB.balance)
 	.toBe(777)
 })
 
 test('bankAccountA is not equal to bankAccountB balance', () => {
-	bankAccountA.deposit({amount: 1})
+	const bankAccountA = createAccount()
+	const bankAccountB = createAccount()
+
+	bankAccountA.deposit({amount: 111})
+	bankAccountB.deposit({amount: 222})
+
 	expect(bankAccountA.balance)
 	.not.toBe(bankAccountB.balance)
 })
